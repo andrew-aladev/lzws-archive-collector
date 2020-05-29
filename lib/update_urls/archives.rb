@@ -72,31 +72,33 @@ def get_archive_urls_from_page_url(url)
       raise StandardError, "unknown uri scheme: #{scheme}"
     end
 
+  rescue QueryError => query_error
+    warn query_error
+    return []
   rescue StandardError => error
     warn error
     return nil
   end
 
-  archive_urls = data
+  data
     .scan(regexp)
     .flatten
     .compact
+    .map do |archive_url|
+      uri    = URI Addressable::URI.parse(url).join(archive_url).to_s
+      scheme = uri.scheme
 
-  archive_urls.map do |archive_url|
-    uri    = URI Addressable::URI.parse(url).join(archive_url).to_s
-    scheme = uri.scheme
-
-    case scheme
-    when "ftp", "http", "https"
-      uri.to_s
-    else
-      raise StandardError, "unknown uri scheme: #{scheme}"
+      case scheme
+      when "ftp", "http", "https"
+        uri.to_s
+      else
+        raise StandardError, "unknown uri scheme: #{scheme}"
+      end
+    rescue StandardError => error
+      warn error
+      next nil
     end
-  rescue StandardError => error
-    warn error
-    next nil
-  end
-  .compact
+    .compact
 end
 
 def get_archive_urls(page_urls)

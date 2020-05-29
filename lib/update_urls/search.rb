@@ -19,7 +19,7 @@ def get_text
     MAIN_TEXT,
     ADDITIONAL_TEXTS
       .shuffle
-      .slice(0, rand(0..ADDITIONAL_TEXTS.length))
+      .slice(0, rand(1..ADDITIONAL_TEXTS.length))
       .join("|")
   ]
   .shuffle

@@ -78,6 +78,11 @@ def download_archive(url)
       raise StandardError, "unknown uri scheme: #{scheme}"
     end
 
+  rescue QueryError => query_error
+    # Query error equal empty archive from analysis perspective.
+    # So we can simulate that we received empty archive.
+    warn query_error
+    File.write ARCHIVE_PATH, ""
   rescue StandardError => error
     warn error
     return nil
