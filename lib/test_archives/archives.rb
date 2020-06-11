@@ -111,7 +111,7 @@ rescue StandardError => error
 end
 
 def threaded_map(items, item_threads_count, &block)
-  threads_count = [Parallel.processor_count / item_threads_count, 1].max
+  threads_count = [(Parallel.processor_count / item_threads_count).ceil, 1].max
   Parallel.map items, :in_threads => threads_count, &block
 end
 
