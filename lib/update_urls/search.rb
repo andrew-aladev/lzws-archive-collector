@@ -11,8 +11,30 @@ require_relative "../common/query"
 # This method provides better results.
 
 # ".Z" index|directory|listing|ftp|file|archive
-MAIN_TEXT        = "\"#{ARCHIVE_POSTFIX}\"".freeze
-ADDITIONAL_TEXTS = %w[index directory listing ftp file archive].freeze
+MAIN_TEXT = "\"#{ARCHIVE_POSTFIX}\"".freeze
+
+ADDITIONAL_TEXTS = %w[
+  archive
+  catalog
+  catalogue
+  data
+  directory
+  file
+  folder
+  ftp
+  http
+  index
+  library
+  list
+  listing
+  record
+  register
+  registry
+  repository
+  root
+  storage
+]
+.freeze
 
 def get_text
   [
