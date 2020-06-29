@@ -1,8 +1,8 @@
 require "json"
 require "uri"
 
+require_relative "../common/colorize"
 require_relative "../common/data"
-require_relative "../common/format"
 require_relative "../common/query"
 
 # We can try to receive all pages from single search url one-by-one.

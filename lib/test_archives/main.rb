@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
+require_relative "../common/colorize"
 require_relative "../common/digest_hash"
-require_relative "../common/format"
 require_relative "../common/list"
 require_relative "archives"
 

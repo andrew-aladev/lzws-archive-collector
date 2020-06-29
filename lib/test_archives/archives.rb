@@ -1,12 +1,11 @@
-require "colorize"
 require "digest"
-require "filesize"
 require "ocg"
 require "parallel"
 require "uri"
 
 require "English"
 
+require_relative "../common/colorize"
 require_relative "../common/data"
 require_relative "../common/format"
 require_relative "../common/query"
@@ -212,9 +211,11 @@ def test_archives(archive_urls, valid_archives, invalid_archives, volatile_archi
       next if file_path.nil?
 
       begin
-        size = File.size file_path
-        digest = Digest::SHA256.file(file_path).to_s
-        warn "downloaded archive, size: #{Filesize.new(size).pretty}, digest: #{digest}"
+        size      = File.size file_path
+        size_text = format_filesize size
+        digest    = Digest::SHA256.file(file_path).to_s
+
+        warn "downloaded archive, size: #{size_text}, digest: #{digest}"
 
         hash, hash_name = get_hash_by_archive_digest digest, valid_archives, invalid_archives, volatile_archives
         unless hash.nil?
@@ -245,8 +246,7 @@ def test_archives(archive_urls, valid_archives, invalid_archives, volatile_archi
       end
     end
 
-  archives_size_text = Filesize.new(archives_size).pretty
-
+  archives_size_text     = format_filesize archives_size
   volatile_archives_text = colorize_length volatile_archives_length
   invalid_archives_text  = colorize_length invalid_archives_length
   valid_archives_text    = colorize_length valid_archives_length
