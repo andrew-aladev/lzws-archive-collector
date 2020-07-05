@@ -211,10 +211,10 @@ def test_archives(archive_urls, valid_archives, invalid_archives, volatile_archi
       next if file_path.nil?
 
       begin
-        size      = File.size file_path
+        size = File.size file_path
+
         size_text = format_filesize size
         digest    = Digest::SHA256.file(file_path).to_s
-
         warn "downloaded archive, size: #{size_text}, digest: #{digest}"
 
         hash, hash_name = get_hash_by_archive_digest digest, valid_archives, invalid_archives, volatile_archives
