@@ -127,7 +127,7 @@ def get_archive_urls(page_urls)
       archive_text = colorize_length new_archive_urls.length
       warn "received #{archive_text} archive urls, page is #{page_text}"
 
-      archive_urls += new_archive_urls
+      archive_urls.concat new_archive_urls
     end
 
   valid_page_urls   = valid_page_urls.sort.uniq
