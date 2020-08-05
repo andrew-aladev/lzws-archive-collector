@@ -5,7 +5,7 @@ gem "colorize"
 gem "filesize"
 gem "ocg"
 gem "parallel"
-gem "ruby-xz"
+gem "ruby-zstds"
 
 group :development, :test do
   gem "rake"

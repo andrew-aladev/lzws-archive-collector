@@ -6,7 +6,8 @@ cd "$DIR"
 
 cd "../.."
 
-truncate --size=0 \
-  "data/valid_page_urls.xz" \
-  "data/invalid_page_urls.xz" \
-  "data/archive_urls.xz"
+empty_data=$(echo "" | zstd -c)
+
+echo "$empty_data" > "data/valid_page_urls.zst"
+echo "$empty_data" > "data/invalid_page_urls.zst"
+echo "$empty_data" > "data/archive_urls.zst"

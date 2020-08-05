@@ -19,11 +19,11 @@ So we will use all available endpoints from "stats.searx.xyz".
 Search results are the list of page urls.
 We will visit pages in random order and collect all links that ends with ".Z".
 
-Page urls with at least one link will be stored in "data/valid_page_urls.xz".
-Page urls with no archive links will be stored in "data/invalid_page_urls.xz".
-Links will be stored in "data/archive_urls.xz".
+Page urls with at least one link will be stored in "data/valid_page_urls.zst".
+Page urls with no archive links will be stored in "data/invalid_page_urls.zst".
+Links will be stored in "data/archive_urls.zst".
 
-It is possible to view these lists by using "less data/valid_page_urls.xz".
+It is possible to view these lists by using "less data/valid_page_urls.zst".
 
 -----
 
@@ -62,20 +62,20 @@ Archive is volatile when lzws and ncompress provides different content for any t
 
 -----
 
-Invalid archives are stored in "data/invalid_archives.xz".
-Valid archives are stored in "data/valid_archives.xz".
-Volatile archives are stored in "data/volatile_archives.xz".
+Invalid archives are stored in "data/invalid_archives.zst".
+Valid archives are stored in "data/valid_archives.zst".
+Volatile archives are stored in "data/volatile_archives.zst".
 
 Format of list is "#{archive url} #{sha256sum of archive}".
 Archives with same digest wont be tested again.
 They will be just stored in related list.
 
 You can count unique archives.
-For example: "xzcat data/valid_archives.xz | cut -d " " -f 2 | sort | uniq -c | sort".
+For example: "zstdcat data/valid_archives.zst | cut -d " " -f 2 | sort | uniq -c | sort".
 
 Volatile archives list is the main result of this test.
 If volatile archives list are empty - lzws and ncompress are 100% compatible.
-If volatile archives list are not empty - please view "less data/volatile_archives.xz" and check these archives.
+If volatile archives list are not empty - please view "less data/volatile_archives.zst" and check these archives.
 
 -----
 

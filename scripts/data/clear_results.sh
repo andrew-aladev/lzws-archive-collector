@@ -6,7 +6,8 @@ cd "$DIR"
 
 cd "../.."
 
-truncate --size=0 \
-  "data/valid_archives.xz" \
-  "data/invalid_archives.xz" \
-  "data/volatile_archives.xz"
+empty_data=$(echo "" | zstd -c)
+
+echo "$empty_data" > "data/valid_archives.zst"
+echo "$empty_data" > "data/invalid_archives.zst"
+echo "$empty_data" > "data/volatile_archives.zst"

@@ -41,7 +41,7 @@ done
 cd ".."
 
 ./lib/test_archives/main.rb \
-  "data/archive_urls.xz" \
-  "data/valid_archives.xz" \
-  "data/invalid_archives.xz" \
-  "data/volatile_archives.xz"
+  "data/archive_urls.zst" \
+  "data/valid_archives.zst" \
+  "data/invalid_archives.zst" \
+  "data/volatile_archives.zst"
