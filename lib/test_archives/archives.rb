@@ -116,12 +116,12 @@ end
 
 def test_archive(file_path)
   decompressed_digests = threaded_map(ALL_BINARIES, 1) do |binary|
-    STDERR.print "."
+    $stderr.print "."
 
     get_command_digest "#{binary} -d < \"#{file_path}\""
   end
 
-  STDERR.print " "
+  $stderr.print " "
 
   if decompressed_digests.uniq.length != 1
     warn "decompressed digests are not the same"
@@ -144,7 +144,7 @@ def test_archive(file_path)
   # It is safe to run this code on SSD.
 
   re_decompressed_digests = threaded_map(ALL_BINARIES, 3) do |binary|
-    STDERR.print "."
+    $stderr.print "."
 
     get_command_digest(
       "#{binary} -d < \"#{file_path}\" | " \
@@ -153,7 +153,7 @@ def test_archive(file_path)
     )
   end
 
-  STDERR.print " "
+  $stderr.print " "
 
   if re_decompressed_digests.uniq.length != 1 || re_decompressed_digests.first != decompressed_digest
     warn "re-decompressed digests are invalid"
@@ -168,7 +168,7 @@ def test_archive(file_path)
   # So this test can take a long time.
 
   lzws_re_decompressed_digests = threaded_map(LZWS_BINARIES_WITH_OPTIONS, 3) do |object|
-    STDERR.print "."
+    $stderr.print "."
 
     binary  = object[:binary]
     options = object[:options]
@@ -180,7 +180,7 @@ def test_archive(file_path)
     )
   end
 
-  STDERR.print "\n"
+  $stderr.print "\n"
 
   if lzws_re_decompressed_digests.uniq.length != 1 || lzws_re_decompressed_digests.first != decompressed_digest
     warn "lzws re-decompressed digests are invalid"
