@@ -10,8 +10,11 @@ require_relative "../common/query"
 # We can make a queue of search urls and process urls one-by-one instead.
 # This method provides better results.
 
-# ".Z" index|directory|listing|ftp|file|archive
-MAIN_TEXT = "\"#{ARCHIVE_POSTFIX}\"".freeze
+# Example search text: ".z"|"TAR.Z" index|directory.
+MAIN_TEXTS = ([""] + %w[tar TAR]).flat_map do |file|
+  [ARCHIVE_POSTFIX.downcase, ARCHIVE_POSTFIX.upcase].map { |postfix| "#{file}#{postfix}" }
+end
+.freeze
 
 ADDITIONAL_TEXTS = %w[
   archive
@@ -37,16 +40,24 @@ ADDITIONAL_TEXTS = %w[
 .freeze
 
 def get_text
-  [
-    MAIN_TEXT,
-    ADDITIONAL_TEXTS
+  main_text = MAIN_TEXTS
+    .shuffle
+    .slice(0, rand(1..MAIN_TEXTS.length))
+    .map { |text| "\"#{text}\"" }
+    .join("|")
+
+  additional_text = ADDITIONAL_TEXTS
+    .shuffle
+    .slice(0, rand(0..ADDITIONAL_TEXTS.length))
+    .join("|")
+
+  if additional_text.empty?
+    main_text
+  else
+    [main_text, additional_text]
       .shuffle
-      .slice(0, rand(1..ADDITIONAL_TEXTS.length))
-      .join("|")
-  ]
-  .shuffle
-  .join(" ")
-  .strip
+      .join(" ")
+  end
 end
 
 def read_new_page_urls_from_search_url(url, text, page_number, page_urls)
