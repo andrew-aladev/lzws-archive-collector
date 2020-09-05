@@ -11,8 +11,11 @@ require_relative "../common/query"
 # This method provides better results.
 
 # Example search text: ".z"|"TAR.Z" index|directory.
-MAIN_TEXTS = ([""] + %w[tar TAR]).flat_map do |file|
-  [ARCHIVE_POSTFIX.downcase, ARCHIVE_POSTFIX.upcase].map { |postfix| "#{file}#{postfix}" }
+MAIN_FILES     = ([""] + %w[tar TAR]).freeze
+MAIN_POSTFIXES = [ARCHIVE_POSTFIX.downcase, ARCHIVE_POSTFIX.upcase].freeze
+
+MAIN_TEXTS = MAIN_FILES.flat_map do |file|
+  MAIN_POSTFIXES.map { |postfix| "#{file}#{postfix}" }
 end
 .freeze
 
