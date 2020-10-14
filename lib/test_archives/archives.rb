@@ -161,9 +161,9 @@ def test_archive(file_path)
     return :volatile
   end
 
-  warn "archive re-compressed and decompressed"
+  warn "archive decompressed and re-compressed"
 
-  # Now we can re-compress/decompress archive using lzws options.
+  # Now we can decompress/re-compress archive using lzws options.
   # It should be possible to process lzws options in any combination.
   # So this test can take a long time.
 
@@ -188,7 +188,7 @@ def test_archive(file_path)
     return :volatile
   end
 
-  warn "archive re-compressed and decompressed using lzws option combinations"
+  warn "archive decompressed and re-compressed using lzws option combinations"
   warn "archive is #{'valid'.light_green}"
 
   :valid
