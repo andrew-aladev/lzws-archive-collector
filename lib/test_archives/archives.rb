@@ -44,7 +44,7 @@ LZWS_OPTION_COMBINATIONS = OCG.new(
   "raw"                  => BOOLS,
   "unaligned-bit-groups" => BOOLS
 )
-.to_a
+.freeze
 
 LZWS_OPTIONS = LZWS_OPTION_COMBINATIONS.map do |combination|
   combination.map do |name, value|
@@ -56,12 +56,13 @@ LZWS_OPTIONS = LZWS_OPTION_COMBINATIONS.map do |combination|
   .compact
   .join " "
 end
+.freeze
 
 LZWS_BINARIES_WITH_OPTIONS = OCG.new(
   :binary  => LZWS_BINARIES,
   :options => LZWS_OPTIONS
 )
-.to_a
+.freeze
 
 def download_archive(url)
   begin
