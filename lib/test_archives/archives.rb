@@ -116,7 +116,7 @@ def threaded_map(items, item_threads_count, &block)
 end
 
 def test_archive(file_path)
-  decompressed_digests = threaded_map(ALL_BINARIES, 1) do |binary|
+  decompressed_digests = threaded_map ALL_BINARIES, 1 do |binary|
     $stderr.print "."
 
     get_command_digest "#{binary} -d < \"#{file_path}\""
@@ -144,7 +144,7 @@ def test_archive(file_path)
   # So it is more CPU than I/O intensive.
   # It is safe to run this code on SSD.
 
-  re_decompressed_digests = threaded_map(ALL_BINARIES, 3) do |binary|
+  re_decompressed_digests = threaded_map ALL_BINARIES, 3 do |binary|
     $stderr.print "."
 
     get_command_digest(
@@ -168,7 +168,7 @@ def test_archive(file_path)
   # It should be possible to process lzws options in any combination.
   # So this test can take a long time.
 
-  lzws_re_decompressed_digests = threaded_map(LZWS_BINARIES_WITH_OPTIONS, 3) do |object|
+  lzws_re_decompressed_digests = threaded_map LZWS_BINARIES_WITH_OPTIONS, 3 do |object|
     $stderr.print "."
 
     binary  = object[:binary]
