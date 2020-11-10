@@ -82,7 +82,7 @@ def download_archive(url)
     # Query error equal empty archive from analysis perspective.
     # So we can simulate that we received empty archive.
     warn query_error
-    File.write ARCHIVE_PATH, ""
+    File.write ARCHIVE_PATH, "", :mode => "wb"
   rescue StandardError => error
     warn error
     return nil
