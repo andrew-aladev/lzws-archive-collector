@@ -20,7 +20,7 @@ for dictionary in "linked-list" "sparse-array"; do
   mkdir -p "$build"
   cd "$build"
 
-  find . \( -name "CMake*" -o -name "*.cmake" \) -depth -exec rm -rf {} +
+  find . -depth \( -name "CMake*" -o -name "*.cmake" \) -exec rm -rf {} +
 
   cmake "${LZWS_PATH:-../../../}" \
     -DLZWS_COMPRESSOR_DICTIONARY="$dictionary" \
