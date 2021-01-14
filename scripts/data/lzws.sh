@@ -9,4 +9,4 @@ cd "../../tmp"
 dictionary="$1"
 shift
 
-"./${dictionary}-build/src/cli/lzws-static" $@
+"./${dictionary}-build/result/lzws-static" $@
