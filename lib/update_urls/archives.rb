@@ -137,7 +137,9 @@ def get_archive_urls(page_urls)
   valid_page_text   = colorize_length valid_page_urls.length
   invalid_page_text = colorize_length invalid_page_urls.length
   archive_text      = colorize_length archive_urls.length
-  warn "-- received #{archive_text} archive urls from #{valid_page_text} valid page urls, #{invalid_page_text} invalid page urls"
+  warn "-- received #{archive_text} archive urls " \
+    "from #{valid_page_text} valid page urls, " \
+    "#{invalid_page_text} invalid page urls"
 
   [valid_page_urls, invalid_page_urls, archive_urls]
 end
