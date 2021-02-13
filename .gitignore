@@ -1,2 +1,4 @@
 tmp
 Gemfile.lock
+data/invalid_page_urls.*
+data/valid_page_urls.*

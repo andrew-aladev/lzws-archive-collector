@@ -23,8 +23,11 @@ ADDITIONAL_TEXTS = %w[
   archive
   catalog
   catalogue
+  code
   data
+  dictionary
   directory
+  document
   file
   folder
   ftp
@@ -33,11 +36,12 @@ ADDITIONAL_TEXTS = %w[
   library
   list
   listing
-  record
+  log
   register
   registry
   repository
   root
+  source
   storage
 ]
 .freeze

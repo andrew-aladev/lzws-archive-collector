@@ -40,8 +40,26 @@ done
 
 cd ".."
 
+ARCHIVE_URLS="data/archive_urls.zst"
+VALID_ARCHIVES="data/valid_archives.zst"
+INVALID_ARCHIVES="data/invalid_archives.zst"
+VOLATILE_ARCHIVES="data/volatile_archives.zst"
+
+FILES=(
+  "$ARCHIVE_URLS"
+  "$VALID_ARCHIVES"
+  "$INVALID_ARCHIVES"
+  "$VOLATILE_ARCHIVES"
+)
+
+for file in "${FILES[@]}"; do
+  if [ ! -f "$file" ]; then
+    echo -n "" | zstd -c > "$file"
+  fi
+done
+
 ./lib/test_archives/main.rb \
-  "data/archive_urls.zst" \
-  "data/valid_archives.zst" \
-  "data/invalid_archives.zst" \
-  "data/volatile_archives.zst"
+  "$ARCHIVE_URLS" \
+  "$VALID_ARCHIVES" \
+  "$INVALID_ARCHIVES" \
+  "$VOLATILE_ARCHIVES"

@@ -6,6 +6,16 @@ cd "$DIR"
 
 cd "../.."
 
-echo -n "" | zstd -c > "data/valid_archives.zst"
-cp "data/valid_archives.zst" "data/invalid_archives.zst"
-cp "data/valid_archives.zst" "data/volatile_archives.zst"
+VALID_ARCHIVES="data/valid_archives.zst"
+INVALID_ARCHIVES="data/invalid_archives.zst"
+VOLATILE_ARCHIVES="data/volatile_archives.zst"
+
+FILES=(
+  "$VALID_ARCHIVES"
+  "$INVALID_ARCHIVES"
+  "$VOLATILE_ARCHIVES"
+)
+
+for file in "${FILES[@]}"; do
+  echo -n "" | zstd -c > "$file"
+done
