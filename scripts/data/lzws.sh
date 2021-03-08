@@ -7,6 +7,7 @@ cd "$DIR"
 cd "../../tmp"
 
 dictionary="$1"
-shift
+bignum_library="$2"
+shift 2
 
-"./${dictionary}-build/result/lzws-static" $@
+"./${dictionary}-${bignum_library}/result/lzws-static" $@
