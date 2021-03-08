@@ -14,28 +14,36 @@ TMP_SIZE="1024"
 ./scripts/temp/mount.sh "$TMP_PATH" "$TMP_SIZE"
 cd "$TMP_PATH"
 
+DICTIONARIES=("linked-list" "sparse-array")
+BIGNUM_LIBRARIES=("gmp" "tommath")
+
 # We need to create release builds for all possible dictionaries.
-for dictionary in "linked-list" "sparse-array"; do
-  build="${dictionary}-build"
-  mkdir -p "$build"
-  cd "$build"
+for dictionary in "${DICTIONARIES[@]}"; do
+  for bignum_library in "${BIGNUM_LIBRARIES[@]}"; do
+    build_dir="${dictionary}-${bignum_library}"
 
-  find . -depth \( -name "CMake*" -o -name "*.cmake" \) -exec rm -rf {} +
+    # Cleanup.
+    rm -rf "$build_dir"
 
-  cmake "${LZWS_PATH:-../../../}" \
-    -DLZWS_COMPRESSOR_DICTIONARY="$dictionary" \
-    -DLZWS_SHARED=OFF \
-    -DLZWS_STATIC=ON \
-    -DLZWS_CLI=ON \
-    -DLZWS_TESTS=OFF \
-    -DLZWS_EXAMPLES=OFF \
-    -DLZWS_MAN=OFF \
-    -DCMAKE_BUILD_TYPE="RELEASE" \
-    -DCMAKE_C_FLAGS_RELEASE="-Ofast -march=native"
-  make clean
-  make -j${CPU_COUNT}
+    mkdir "$build_dir"
+    cd "$build_dir"
 
-  cd ".."
+    cmake "${LZWS_PATH:-../../../}" \
+      -DLZWS_COMPRESSOR_DICTIONARY="$dictionary" \
+      -DLZWS_BIGNUM_LIBRARY="$bignum_library" \
+      -DLZWS_SHARED=OFF \
+      -DLZWS_STATIC=ON \
+      -DLZWS_CLI=ON \
+      -DLZWS_TESTS=OFF \
+      -DLZWS_EXAMPLES=OFF \
+      -DLZWS_MAN=OFF \
+      -DCMAKE_BUILD_TYPE="RELEASE" \
+      -DCMAKE_C_FLAGS_RELEASE="-Ofast -march=native"
+    make clean
+    make -j${CPU_COUNT}
+
+    cd ".."
+  done
 done
 
 cd ".."

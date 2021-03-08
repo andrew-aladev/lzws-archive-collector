@@ -16,18 +16,25 @@ ARCHIVE_PATH   = File.join(TEMP_DIRECTORY, ARCHIVE_NAME).freeze
 
 # -- binaries --
 
-LZWS_DICTIONARIES = %w[linked-list sparse-array].freeze
-BIN_DIRECTORY     = File.join(File.dirname(__FILE__), "..", "..", "scripts", "data").freeze
+LZWS_DICTIONARIES     = %w[linked-list sparse-array].freeze
+LZWS_BIGNUM_LIBRARIES = %w[gmp tommath].freeze
+BIN_DIRECTORY         = File.join(File.dirname(__FILE__), "..", "..", "scripts", "data").freeze
 
-LZWS_BINARIES = LZWS_DICTIONARIES
-  .map do |dictionary|
+LZWS_BINARY_OPTIONS_COMBINATIONS = OCG.new(
+  :dictionary     => LZWS_DICTIONARIES,
+  :bignum_library => LZWS_BIGNUM_LIBRARIES
+)
+.freeze
+
+LZWS_BINARIES = LZWS_BINARY_OPTIONS_COMBINATIONS
+  .map do |binary_options|
     script = File.join BIN_DIRECTORY, "lzws.sh"
-    "#{script} #{dictionary}"
+    "#{script} #{binary_options[:dictionary]} #{binary_options[:bignum_library]}"
   end
   .freeze
-COMPRESS_BINARY = File.join(BIN_DIRECTORY, "compress.sh").freeze
 
-ALL_BINARIES = (LZWS_BINARIES + [COMPRESS_BINARY]).freeze
+COMPRESS_BINARY = File.join(BIN_DIRECTORY, "compress.sh").freeze
+ALL_BINARIES    = (LZWS_BINARIES + [COMPRESS_BINARY]).freeze
 
 # -- lzws options --
 
@@ -37,7 +44,7 @@ BOOLS = [
 ]
 .freeze
 
-LZWS_OPTION_COMBINATIONS = OCG.new(
+LZWS_OPTIONS_COMBINATIONS = OCG.new(
   "max-code-bit-length"  => 9..16,
   "without-magic-header" => BOOLS,
   "msb"                  => BOOLS,
@@ -46,8 +53,8 @@ LZWS_OPTION_COMBINATIONS = OCG.new(
 )
 .freeze
 
-LZWS_OPTIONS = LZWS_OPTION_COMBINATIONS.map do |combination|
-  combination.map do |name, value|
+LZWS_OPTIONS = LZWS_OPTIONS_COMBINATIONS.map do |options|
+  options.map do |name, value|
     next nil if value == false
     next "--#{name}" if value == true
 
