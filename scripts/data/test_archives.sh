@@ -40,8 +40,8 @@ for dictionary in "${DICTIONARIES[@]}"; do
       -DLZWS_MAN=OFF \
       -DCMAKE_BUILD_TYPE="RELEASE" \
       -DCMAKE_C_FLAGS_RELEASE="-Ofast -march=native"
-    make clean
-    make -j${CPU_COUNT}
+    cmake --build "." --target clean
+    cmake --build "." -j${CPU_COUNT}
 
     cd ".."
   done
