@@ -29,7 +29,6 @@ for dictionary in "${DICTIONARIES[@]}"; do
     cd "$build_dir"
 
     cmake "${LZWS_PATH:-../../../}" \
-      -G "Unix Makefiles" \
       -DLZWS_COMPRESSOR_DICTIONARY="$dictionary" \
       -DLZWS_BIGNUM_LIBRARY="$bignum_library" \
       -DLZWS_SHARED=OFF \
