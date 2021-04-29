@@ -37,7 +37,7 @@ for dictionary in "${DICTIONARIES[@]}"; do
       -DLZWS_TESTS=OFF \
       -DLZWS_EXAMPLES=OFF \
       -DLZWS_MAN=OFF \
-      -DCMAKE_BUILD_TYPE="RELEASE" \
+      -DCMAKE_BUILD_TYPE="Release" \
       -DCMAKE_C_FLAGS_RELEASE="-Ofast -march=native"
     cmake --build "." --target "clean"
     cmake --build "." -j${CPU_COUNT}
