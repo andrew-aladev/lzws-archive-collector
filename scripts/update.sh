@@ -15,7 +15,6 @@ rm -f "Gemfile.lock"
 
 /usr/bin/env bash -cl "\
   cd \"$ROOT_DIR\" && \
-  rvm use '.' && \
   gem install bundler && \
   bundle update \
 "
