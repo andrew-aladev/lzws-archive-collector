@@ -9,9 +9,12 @@ git fetch --tags || true
 git remote | xargs -n1 -I {} git rebase "{}/$(git branch --show-current)" || true
 
 cd ".."
+ROOT_DIR=$(pwd)
+
 rm -f "Gemfile.lock"
 
-bash -cl "\
+/usr/bin/env bash -cl "\
+  cd \"$ROOT_DIR\" && \
   rvm use '.' && \
   gem install bundler && \
   bundle update \
