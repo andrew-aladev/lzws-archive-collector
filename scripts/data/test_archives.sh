@@ -35,9 +35,9 @@ for dictionary in "${DICTIONARIES[@]}"; do
       -DLZWS_STATIC=ON \
       -DLZWS_CLI=ON \
       -DLZWS_TESTS=OFF \
-      -DLZWS_COVERAGE=OFF \
       -DLZWS_EXAMPLES=OFF \
       -DLZWS_MAN=OFF \
+      -DLZWS_COVERAGE=OFF \
       -DCMAKE_BUILD_TYPE="Release" \
       -DCMAKE_C_FLAGS_RELEASE="-Ofast -march=native"
 
