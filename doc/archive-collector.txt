@@ -88,7 +88,7 @@ export LZWS_PATH="~/workspace/lzws"
 curl -sSL https://get.rvm.io | bash -s master
 
 2. Install ruby
-rvm install ruby-3.0.1
+rvm install ruby-3.0.2
 
 3. Install required gems
 bundle install
