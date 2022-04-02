@@ -33,8 +33,7 @@ QUERY_HTTP_OPTIONS =
     continue_timeout
     keep_alive_timeout
   ]
-  .map { |timeout| [timeout, QUERY_TIMEOUT] }
-  .to_h
+  .to_h { |timeout| [timeout, QUERY_TIMEOUT] }
   .freeze
 
 def get_http_content(uri, redirect_limit = QUERY_REDIRECT_LIMIT)
@@ -92,8 +91,7 @@ QUERY_FTP_OPTIONS =
     read_timeout
     ssl_handshake_timeout
   ]
-  .map { |timeout| [timeout, QUERY_TIMEOUT] }
-  .to_h
+  .to_h { |timeout| [timeout, QUERY_TIMEOUT] }
   .freeze
 
 def process_ftp(uri, &_block)
